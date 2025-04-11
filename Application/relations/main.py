@@ -154,10 +154,10 @@ def main(filesPathArray: str):
 if __name__ == "__main__":
     # How to use
     testFiles = [
-        "Application/src/relations/testDocuments/test1.txt",
-        "Application/src/relations/testDocuments/test2.txt",
-        "Application/src/relations/testDocuments/test3.txt",
-        "Application/src/relations/testDocuments/test4.txt",
+        "Application/relations/testDocuments/test1.txt",
+        "Application/relations/testDocuments/test2.txt",
+        "Application/relations/testDocuments/test3.txt",
+        "Application/relations/testDocuments/test4.txt",
     ]
 
     main(testFiles)

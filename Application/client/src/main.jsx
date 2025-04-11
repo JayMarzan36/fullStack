@@ -6,8 +6,8 @@ import 'vite/modulepreload-polyfill';
 
 import { createHashRouter, RouterProvider } from 'react-router';
 
-import { NewNote } from './NewNote.jsx';
-import { ViewNotes } from './ViewNotes.jsx';
+import { NewNote } from './pages/NewNote.jsx';
+import { ViewNotes } from './pages/ViewNotes.jsx';
 
 
 //TODO go over canvas and notes to properly make more 'pages' for the single page application
