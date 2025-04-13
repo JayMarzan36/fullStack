@@ -1,7 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
 import { Outlet } from 'react-router';
 import { Link } from 'react-router';
@@ -34,9 +31,8 @@ function App() {
           <Link>View Notes</Link>
         </div>
 
-        <div>
+        
           <button onClick={logout}>Logout</button>
-        </div>
 
       </nav>
 
