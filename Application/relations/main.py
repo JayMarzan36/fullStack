@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 from scipy.linalg import svd
-
 from parseFile import loadFile, countWords
 
 
@@ -46,16 +45,16 @@ def getCosineSimilarity(v1: list, v2: list) -> float:
     return dot_product / (norm_v1 * norm_v2)
 
 
-def parseAllFiles(filePaths: list) -> dict:
+def parseAllFiles(noteObj: dict) -> dict:
     allWordCounts = {}
 
-    for filePath in filePaths:
+    for note in noteObj["userNotes"]:
 
-        content = loadFile(filePath)
+        content = note.get("note content")
 
         wordCount = countWords(content)
 
-        allWordCounts[filePath] = wordCount
+        allWordCounts[note["note name"]] = wordCount
 
     return allWordCounts
 
@@ -74,8 +73,13 @@ def makeMatrix(allWordCounts: dict) -> list:
     return matrix, list(allWords)
 
 
-def main(filesPathArray: str):
-    allWordCounts = parseAllFiles(filesPathArray)
+def main(notesObj: dict):
+    noteNameArray = []
+
+    for note in notes["userNotes"]:
+        noteNameArray.append(note["note name"])
+
+    allWordCounts = parseAllFiles(notesObj)
 
     matrix, words = makeMatrix(allWordCounts)
 
@@ -106,9 +110,8 @@ def main(filesPathArray: str):
     docsAndClosest = {}
 
     for idx, docVector in enumerate(DkScaled):
-        vectorComponentsAdded = (
-            docVector[0] ** 2 + docVector[1] ** 2 + docVector[2] ** 2
-        )
+        vectorComponentsAdded = docVector[0] ** 2 + docVector[1] ** 2
+
         magOfVector = math.sqrt(vectorComponentsAdded)
 
         closestAngle = 1000
@@ -116,16 +119,15 @@ def main(filesPathArray: str):
         closestDoc = "None"
 
         for otherIDX, otherDocVector in enumerate(DkScaled):
-            if testFiles[idx] == testFiles[otherIDX]:
+            if noteNameArray[idx] == noteNameArray[otherIDX]:
                 pass
 
             else:
 
                 otherVectorComponentsAdded = (
-                    otherDocVector[0] ** 2
-                    + otherDocVector[1] ** 2
-                    + otherDocVector[2] ** 2
+                    otherDocVector[0] ** 2 + otherDocVector[1] ** 2
                 )
+
                 otherMagOfVector = math.sqrt(otherVectorComponentsAdded)
 
                 currAngle = math.acos(
@@ -133,7 +135,6 @@ def main(filesPathArray: str):
                         (
                             docVector[0] * otherDocVector[0]
                             + docVector[1] * otherDocVector[1]
-                            + docVector[2] * otherDocVector[2]
                         )
                         / (magOfVector * otherMagOfVector)
                     )
@@ -142,22 +143,29 @@ def main(filesPathArray: str):
                 if currAngle < closestAngle:
                     closestAngle = currAngle
 
-                    closestDoc = testFiles[otherIDX]
+                    closestDoc = noteNameArray[otherIDX]
 
-        print(f"Closest doc to {testFiles[idx]} is {closestDoc}")
+        print(f"Closest doc to {noteNameArray[idx]} is {closestDoc}")
 
-        docsAndClosest[testFiles[idx]] = closestDoc
+        docsAndClosest[noteNameArray[idx]] = closestDoc
 
     return docsAndClosest
 
 
 if __name__ == "__main__":
     # How to use
-    testFiles = [
-        "Application/relations/testDocuments/test1.txt",
-        "Application/relations/testDocuments/test2.txt",
-        "Application/relations/testDocuments/test3.txt",
-        "Application/relations/testDocuments/test4.txt",
-    ]
 
-    main(testFiles)
+    notes = {
+        "userNotes": [
+            {
+                "note name": "Test 2",
+                "note content": "As technology advanced, so did our reach. The 20th century brought an explosion of innovation that transformed dreams of space travel into reality. The Moon landings, robotic probes, and space telescopes like Hubble revealed a universe far more complex and beautiful than we had ever imagined. Yet, for all we’ve achieved, our knowledge still feels like a drop in the cosmic ocean — and that humbling realization continues to fuel exploration.",
+            },
+            {
+                "note name": "Test 1",
+                "note content": "From the earliest days of civilization, humans have looked up at the night sky with wonder, mapping constellations and telling stories about the stars. This innate curiosity about what lies beyond our world has driven countless discoveries and shaped entire cultures. It’s a testament to our nature — a species constantly seeking to understand the unknown and push beyond visible horizon.",
+            },
+        ]
+    }
+
+    print(main(notes))

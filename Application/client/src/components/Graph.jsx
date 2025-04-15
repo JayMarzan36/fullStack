@@ -1,21 +1,32 @@
-import {
-  SimulationNodeDatum,
-  SimulationLinkDatum,
-} from "d3-force";
-
-import { FC, Memo } from "react"
-
-// Following https://medium.com/@qdangdo/visualizing-connections-a-guide-to-react-d3-force-graphs-typescript-74b7af728c90 for making my graph
+import { GraphCanvas } from 'reagraph';
 
 export function Graph() {
-    //TODO figure out how to use d3 to represent the notes data for graph
+    //For graph https://github.com/reaviz/reagraph
 
-
-
+    //TODO request server to get graph relations and put into the graph element
 
     return (
         <>
-            <h1>View Graph</h1>
+            <GraphCanvas
+                nodes={[
+                    {
+                        id: 'n',
+                        label: '1'
+                    },
+                    {
+                        id: 'n2',
+                        label: '2'
+                    }
+                ]}
+                edges={[
+                    {
+                        id: '1->2',
+                        source: 'n',
+                        target: 'n2',
+                        label: 'Edge'
+                    }
+                ]}
+            />
         </>
     )
 }
