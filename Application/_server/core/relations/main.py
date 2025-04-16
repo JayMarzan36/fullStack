@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 from scipy.linalg import svd
-from parseFile import loadFile, countWords
+
+from .parseFile import countWords
 
 
 def showTopWords(U, S, words, k, int=3, topN=5, printWords: bool = False) -> dict:

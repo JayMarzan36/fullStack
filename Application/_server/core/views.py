@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.conf  import settings
-import json
-import os
+import json, os
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from relations import main as Rel
+
+from .relations import main as Rel
+from .relations import parseFile as Paf
 
 
 # Load manifest when server launches
@@ -38,7 +39,7 @@ def homeGraph(req):
         # TODO get notes from database
         
         
-        # This is a test
+        # TODO This is a test, delete after
         notes = {
             "userNotes": [
                 {
@@ -52,6 +53,7 @@ def homeGraph(req):
             ]
         }
         
+        # TODO  get this function working, the imports are not working with me
         notesRelations = Rel.main(notes)
 
     return JsonResponse({"forGraph": {notesRelations}})

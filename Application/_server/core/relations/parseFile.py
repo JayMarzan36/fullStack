@@ -14,9 +14,9 @@ def loadFile(filePath: str, jsonType: bool = False) -> str:
     return content
 
 
-INGORELIST = loadFile("Application/relations/IGNORELIST.json")
-
 def countWords(content: str) -> dict:
+    INGORELIST = loadFile("relations/IGNORELIST.json")
+    
     words = content.split()
 
     wordCount = {}
