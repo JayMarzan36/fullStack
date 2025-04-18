@@ -1,4 +1,7 @@
-import { GraphCanvas } from 'reagraph';
+import { React } from 'react'
+
+//TODO This import 'reagraph/GraphCanvas' fixes the first problem but I get another error
+import { GraphCanvas } from 'reagraph/dist/GraphCanvas.js';
 
 export function Graph() {
     //For graph https://github.com/reaviz/reagraph
