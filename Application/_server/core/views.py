@@ -3,6 +3,10 @@ from django.conf  import settings
 import json, os
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.forms.models import model_to_dict
+
+from .models import Note
+
 
 from .relations import main as Rel
 from .relations import parseFile as Paf
@@ -35,45 +39,56 @@ def index(req):
 @login_required
 def getNotesForGraph(req):
     req.GET
+    
     if req.method == "GET":
-        # TODO get notes from database
-        
-        
-        # TODO This is a test, delete after
-        notes = {
-            "userNotes": [
-            {
-                "note name": "Test 1",
-                "note content": "From the earliest days of civilization, humans have looked up at the night sky with wonder, mapping constellations and telling stories about the stars. This innate curiosity about what lies beyond our world has driven countless discoveries and shaped entire cultures.",
-            },
-            {
-                "note name": "Test 2", 
-                "note content": "As technology advanced, so did our reach. The 20th century brought an explosion of innovation that transformed dreams of space travel into reality. The Moon landings, robotic probes, and space telescopes like Hubble revealed a universe far more complex and beautiful than we had ever imagined.",
-            },
-            {
-                "note name": "Python Basics",
-                "note content": "Python is a high-level programming language known for its simplicity and readability. Key features include dynamic typing, automatic memory management, and extensive standard libraries.",
-            },
-            {
-                "note name": "Data Structures",
-                "note content": "Common data structures in programming include arrays, linked lists, trees, and graphs. Each has specific use cases and performance characteristics worth considering.",
-            },
-            {
-                "note name": "Web Development",
-                "note content": "Modern web development involves both frontend and backend technologies. Frontend focuses on user interface while backend handles data processing and storage.",
-            },
-            {
-                "note name": "AI Concepts",
-                "note content": "Artificial Intelligence encompasses machine learning, neural networks, and natural language processing. These technologies are transforming how we approach complex problems.",
+        try:
+            notesFromDB = Note.objects.filter(user=req.user)
+            
+            notes ={}
+            
+            userNotes = []
+            
+            for i in notesFromDB:
+                userNotes.append({"note name":i.title,"note content" : i.content})
+            
+            notes["userNotes"] = userNotes
+            
+            returnData = Rel.main(notes)
+            
+        except Exception as e:
+            data = {"data":{
+                "nodes": [
+                    { id: 'node 1' },
+                    { id: 'node 2' },
+                    { id: 'node 3' },
+                    { id: 'node 4' },
+                ],
+                "links": [
+                    { "source": 'node 1', "target": 'node 2' },
+                    { "source": 'node 4', "target": 'node 3' },
+                    { "source": 'node 1', "target": 'node 4' },
+                ]}
             }
-            ]
-        }
-        
-        notesRelations = Rel.main(notes)
-        
-        #print(notesRelations)
+            
+            data = json.dumps(data)
+            returnData = json.loads(data)
 
-    return JsonResponse(notesRelations)
+    return JsonResponse(returnData)
+
+@login_required
+def note(req):
+    if req.method == "POST":
+        body = json.loads(req.body)
+        
+        note = Note.objects.create(
+            user=req.user,
+            title=body["title"],
+            content=body["content"],
+        )
+        
+        return JsonResponse({"note":model_to_dict(note)})
+        
+        
 
 
 # TODO make view for making note

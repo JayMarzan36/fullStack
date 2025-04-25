@@ -1,31 +1,39 @@
 import { useEffect, useState } from 'react'
 
+import ForceGraph from 'react-force-graph-3d';
 
+import { updateGraph } from '../hooks/updateGraph';
 
 export function Graph() {
 
-    // const testData = {
-    //     nodes: [
-    //         { id: 'node 1' },
-    //         { id: 'node 2' },
-    //         { id: 'node 3' },
-    //         { id: 'node 4' },
-    //     ],
-    //     links: [
-    //         { source: 'node 1', target: 'node 2', value: 100 },
-    //         { source: 'node 1', target: 'node 4' },
-    //         { source: 'node 4', target: 'node 3' }
-    //     ]
-    // };
+    const [data, hasError] = updateGraph();
 
-    
-
-
+    const handleNodeClick = (node) => {
+      console.log(node);
+    };
 
     return (
         <>
-            
-            
+            <div>
+                {
+                    !hasError &&
+                    (<ForceGraph
+                        width={500}
+                        height={600}
+                        graphData={data}
+                        nodeRelSize={6}
+                        nodeAutoColorBy="id"
+                        onNodeClick={handleNodeClick}
+                        nodeLabel={"id"}
+                    />)
+                }
+                {
+                    hasError &&
+                    <div className="error-popup">
+                            An Error ocurred, please refresh
+                    </div>
+                }
+        </div>
         </>
     )
 }

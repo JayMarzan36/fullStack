@@ -138,15 +138,16 @@ def main(notesObj: dict):
 
                 otherMagOfVector = math.sqrt(otherVectorComponentsAdded)
 
-                currAngle = math.acos(
+                cos_value = (
                     (
-                        (
-                            docVector[0] * otherDocVector[0]
-                            + docVector[1] * otherDocVector[1]
-                        )
-                        / (magOfVector * otherMagOfVector)
+                        docVector[0] * otherDocVector[0]
+                        + docVector[1] * otherDocVector[1]
                     )
+                    / (magOfVector * otherMagOfVector)
                 )
+                # Ensure the value is within [-1, 1]
+                cos_value = max(min(cos_value, 1.0), -1.0)
+                currAngle = math.acos(cos_value)
 
                 if currAngle < closestAngle:
                     closestAngle = currAngle
