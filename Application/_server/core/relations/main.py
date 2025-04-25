@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import math
+import math, json
 from scipy.linalg import svd
 
 from .parseFile import countWords
@@ -77,7 +77,7 @@ def makeMatrix(allWordCounts: dict) -> list:
 def main(notesObj: dict):
     noteNameArray = []
 
-    for note in notes["userNotes"]:
+    for note in notesObj["userNotes"]:
         noteNameArray.append(note["note name"])
 
     allWordCounts = parseAllFiles(notesObj)
@@ -98,9 +98,9 @@ def main(notesObj: dict):
 
     # topConceptWords = showTopWords(U, S, words, k=3, topN=3)
 
-    fig = plt.figure(figsize=(8, 6))
+    # fig = plt.figure(figsize=(8, 6))
 
-    ax = fig.add_subplot(111, projection="3d")
+    # ax = fig.add_subplot(111, projection="3d")
 
     DkNorm = Dk / np.linalg.norm(Dk, axis=1)[:, np.newaxis]
 
@@ -108,7 +108,10 @@ def main(notesObj: dict):
 
     DkScaled = DkNorm * scaleFactor
 
-    docsAndClosest = {}
+
+
+    docs = [] # "id" : name
+    docsAndClosest = [] # target 
 
     for idx, docVector in enumerate(DkScaled):
         vectorComponentsAdded = docVector[0] ** 2 + docVector[1] ** 2
@@ -120,6 +123,10 @@ def main(notesObj: dict):
         closestDoc = "None"
 
         for otherIDX, otherDocVector in enumerate(DkScaled):
+            note_id = {'id': noteNameArray[idx]}
+            if note_id not in docs:
+                docs.append(note_id)
+
             if noteNameArray[idx] == noteNameArray[otherIDX]:
                 pass
 
@@ -146,11 +153,16 @@ def main(notesObj: dict):
 
                     closestDoc = noteNameArray[otherIDX]
 
-        print(f"Closest doc to {noteNameArray[idx]} is {closestDoc}")
+        # print(f"Closest doc to {noteNameArray[idx]} is {closestDoc}")
 
-        docsAndClosest[noteNameArray[idx]] = closestDoc
+        docsAndClosest.append({'source' : noteNameArray[idx], 'target' : closestDoc})
+        
+        data = {"data" : {"nodes" : docs, "links" : docsAndClosest}}
 
-    return docsAndClosest
+        data = json.dumps(data)
+        returnData = json.loads(data)
+
+    return returnData
 
 
 if __name__ == "__main__":

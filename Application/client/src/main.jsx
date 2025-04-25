@@ -9,7 +9,6 @@ import { createHashRouter, RouterProvider } from 'react-router';
 import { NewNote } from './pages/NewNote.jsx';
 import { ViewNotes } from './pages/ViewNotes.jsx';
 
-import { Graph } from './components/Graph.jsx';
 
 
 //TODO go over canvas and notes to properly make more 'pages' for the single page application
@@ -31,19 +30,13 @@ const router = createHashRouter([
       {
         path: "/viewnote",
         element: <ViewNotes/>,
-      },
-      {
-        path: "/graph",
-        element: <Graph/>
       }
     ]
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
 
     <RouterProvider router={router}/>
   
-  </React.StrictMode>,
 )

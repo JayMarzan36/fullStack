@@ -1,35 +1,31 @@
-import { React } from 'react'
+import { useEffect, useState } from 'react'
 
-//TODO This import 'reagraph/GraphCanvas' fixes the first problem but I get another error
-import { GraphCanvas } from 'reagraph/dist/GraphCanvas.js';
+
 
 export function Graph() {
-    //For graph https://github.com/reaviz/reagraph
 
-    //TODO request server to get graph relations and put into the graph element
+    // const testData = {
+    //     nodes: [
+    //         { id: 'node 1' },
+    //         { id: 'node 2' },
+    //         { id: 'node 3' },
+    //         { id: 'node 4' },
+    //     ],
+    //     links: [
+    //         { source: 'node 1', target: 'node 2', value: 100 },
+    //         { source: 'node 1', target: 'node 4' },
+    //         { source: 'node 4', target: 'node 3' }
+    //     ]
+    // };
+
+    
+
+
 
     return (
         <>
-            <GraphCanvas
-                nodes={[
-                    {
-                        id: 'n',
-                        label: '1'
-                    },
-                    {
-                        id: 'n2',
-                        label: '2'
-                    }
-                ]}
-                edges={[
-                    {
-                        id: '1->2',
-                        source: 'n',
-                        target: 'n2',
-                        label: 'Edge'
-                    }
-                ]}
-            />
+            
+            
         </>
     )
 }

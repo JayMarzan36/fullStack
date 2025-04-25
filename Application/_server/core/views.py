@@ -33,7 +33,7 @@ def index(req):
 
 # TODO make view for homepage
 @login_required
-def homeGraph(req):
+def getNotesForGraph(req):
     req.GET
     if req.method == "GET":
         # TODO get notes from database
@@ -42,21 +42,38 @@ def homeGraph(req):
         # TODO This is a test, delete after
         notes = {
             "userNotes": [
-                {
-                    "note name": "Test 2",
-                    "note content": "As technology advanced, so did our reach. The 20th century brought an explosion of innovation that transformed dreams of space travel into reality. The Moon landings, robotic probes, and space telescopes like Hubble revealed a universe far more complex and beautiful than we had ever imagined. Yet, for all we’ve achieved, our knowledge still feels like a drop in the cosmic ocean — and that humbling realization continues to fuel exploration.",
-                },
-                {
-                    "note name": "Test 1",
-                    "note content": "From the earliest days of civilization, humans have looked up at the night sky with wonder, mapping constellations and telling stories about the stars. This innate curiosity about what lies beyond our world has driven countless discoveries and shaped entire cultures. It’s a testament to our nature — a species constantly seeking to understand the unknown and push beyond visible horizon.",
-                },
+            {
+                "note name": "Test 1",
+                "note content": "From the earliest days of civilization, humans have looked up at the night sky with wonder, mapping constellations and telling stories about the stars. This innate curiosity about what lies beyond our world has driven countless discoveries and shaped entire cultures.",
+            },
+            {
+                "note name": "Test 2", 
+                "note content": "As technology advanced, so did our reach. The 20th century brought an explosion of innovation that transformed dreams of space travel into reality. The Moon landings, robotic probes, and space telescopes like Hubble revealed a universe far more complex and beautiful than we had ever imagined.",
+            },
+            {
+                "note name": "Python Basics",
+                "note content": "Python is a high-level programming language known for its simplicity and readability. Key features include dynamic typing, automatic memory management, and extensive standard libraries.",
+            },
+            {
+                "note name": "Data Structures",
+                "note content": "Common data structures in programming include arrays, linked lists, trees, and graphs. Each has specific use cases and performance characteristics worth considering.",
+            },
+            {
+                "note name": "Web Development",
+                "note content": "Modern web development involves both frontend and backend technologies. Frontend focuses on user interface while backend handles data processing and storage.",
+            },
+            {
+                "note name": "AI Concepts",
+                "note content": "Artificial Intelligence encompasses machine learning, neural networks, and natural language processing. These technologies are transforming how we approach complex problems.",
+            }
             ]
         }
         
-        # TODO  get this function working, the imports are not working with me
         notesRelations = Rel.main(notes)
+        
+        #print(notesRelations)
 
-    return JsonResponse({"forGraph": {notesRelations}})
+    return JsonResponse(notesRelations)
 
 
 # TODO make view for making note
