@@ -4,8 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: white;
+  background-color: #1c448e;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,11 +16,8 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: black;
   text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
@@ -29,11 +26,51 @@ body {
   min-height: 100vh;
 }
 
+.mainNotes {
+  padding: 10px;
+  padding-left: 140px;
+}
+
+.mainNotes > form > label {
+  padding: 4px;
+}
+
+.mainNotes > form > label > input {
+  padding: 3px;
+  border: 2px solid #fcfc62;
+  border-radius: 8px;
+  color: white;
+  font-size: larger;
+  background-color: #1c448e;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.mainNotes > form > textarea {
+  border: 2px solid #fcfc62;
+  border-radius: 8px;
+  color: white;
+  font-size: large;
+  background-color: #1c448e;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.mainNotes > form > button {
+  max-height: 50px;
+  margin: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.mainNotes > form {
+  display: flex;
+  justify-items: center;
+
+}
+
 nav {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: #383535;
+  background-color: #1c448e;
 }
 
 nav > div {
@@ -43,13 +80,14 @@ nav > div {
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background-color: #fcfc62;
     cursor: pointer;
-    transition: border-color 0.25s;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: all 0.25s;
 }
 
 nav > div:hover {
-  border-color: #646cff;
+  background-color: #ff7f11;
 }
 
 h1 {
@@ -64,14 +102,54 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #fcfc62;
   cursor: pointer;
-  transition: border-color 0.25s;
+  color: black;
+  transition: all 0.25s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: #ff7f11;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.graph {
+  display: flex;
+  justify-content: center;
+}
+
+.noteList {
+  display: grid;
+  
+}
+
+
+.noteCard {
+  cursor: pointer;
+  font-size: larger;
+  color: black;
+  background-color: #fcfc62;
+  width: 100px;
+  text-align: center;
+  border: 5px solid #fcfc62;
+  border-radius: 20px;
+  transition: all 0.25s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.noteCard:hover {
+  background-color: #ff7f11;
+  border: 5px solid #ff7f11;
+}
+
+
+.hasError {
+  background-color: red;
+  color: black;
+  width: 150px;
+  border-radius: 8px;
+  padding: 4px;
 }

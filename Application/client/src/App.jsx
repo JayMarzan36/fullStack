@@ -10,14 +10,11 @@ function App() {
 
   async function logout() {
     const res = await fetch("/registration/logout/", {
-      credentials: "same-origin", // TODO include cookies!
+      credentials: "same-origin",
     });
 
     if (res.ok) {
-      // TODO navigate away from the single page app!
       window.location = "/registration/sign_in/";
-    } else {
-      // TODO handle logout failed!
     }
   }
 
@@ -26,11 +23,12 @@ function App() {
 
   return (
     <>
+      <title>Link Notes</title>
       <nav className="Navigation">
 
         <div>
-            <Link to={"/"}>View Graph</Link>
-        </div>
+              <Link to={"/"}>View Graph</Link>
+          </div>
 
         <div>
             <Link to={"/newnote"}>New Note</Link>

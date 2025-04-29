@@ -3,8 +3,6 @@ import { useFetch } from "./useFetch";
 
 export function updateGraph() {
 
-    //TODO change so it updates when there is a change in a user notes
-    
     const [hasError, setHasError] = useState(false);
     
     const [data, setData] = useState({ nodes: [], links: [] });
