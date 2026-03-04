@@ -4,8 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: white;
-  background-color: #1c448e;
+  color: #0A0908;
+  background-color: #F2F4F3;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -37,20 +37,20 @@ body {
 
 .mainNotes > form > label > input {
   padding: 3px;
-  border: 2px solid #fcfc62;
+  border: 2px solid #5E503F;
   border-radius: 8px;
-  color: white;
+  color: #0A0908;
   font-size: larger;
-  background-color: #1c448e;
+  background-color: #F2F4F3;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .mainNotes > form > textarea {
-  border: 2px solid #fcfc62;
+  border: 2px solid #5E503F;
   border-radius: 8px;
-  color: white;
+  color: #0A0908;
   font-size: large;
-  background-color: #1c448e;
+  background-color: #F2F4F3;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -70,7 +70,7 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: #1c448e;
+  background-color: #F2F4F3;
 }
 
 nav > div {
@@ -80,14 +80,14 @@ nav > div {
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #fcfc62;
+    background-color: #F2F4F3;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transition: all 0.25s;
 }
 
 nav > div:hover {
-  background-color: #ff7f11;
+  background-color: #F2F4F3;
 }
 
 h1 {
@@ -102,14 +102,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #fcfc62;
+  background-color: #F2F4F3;
   cursor: pointer;
   color: black;
   transition: all 0.25s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 button:hover {
-  background-color: #ff7f11;
+  color: #22333B;
 }
 button:focus,
 button:focus-visible {
@@ -131,25 +131,27 @@ button:focus-visible {
   cursor: pointer;
   font-size: larger;
   color: black;
-  background-color: #fcfc62;
+  background-color: #F2F4F3;
   width: 100px;
   text-align: center;
-  border: 5px solid #fcfc62;
+  border: 5px solid #5E503F;
   border-radius: 20px;
   transition: all 0.25s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .noteCard:hover {
-  background-color: #ff7f11;
-  border: 5px solid #ff7f11;
+  background-color: #F2F4F3;
+  color: #22333B;
+  border: 5px solid #5E503F;
 }
 
 
 .hasError {
   background-color: red;
-  color: black;
+  color: #0A0908;
   width: 150px;
   border-radius: 8px;
   padding: 4px;
 }
+
