@@ -6,6 +6,6 @@ class Note(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    title = models.CharField()
+    title = models.TextField()
 
-    content = models.CharField()
+    content = models.TextField()

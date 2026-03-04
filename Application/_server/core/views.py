@@ -15,21 +15,40 @@ from .relations import parseFile as Paf
 # Load manifest when server launches
 MANIFEST = {}
 if not settings.DEBUG:
-    f = open(f"{settings.BASE_DIR}/core/static/manifest.json")
-    MANIFEST = json.load(f)
+    # Manifest is in core/templates/ directory (copied from Vite build output)
+    manifest_path = f"{settings.BASE_DIR}/core/templates/manifest.json"
+    if os.path.exists(manifest_path):
+        with open(manifest_path) as f:
+            MANIFEST = json.load(f)
 
 
 # Create your views here.
 @login_required
 def index(req):
+    # Get manifest values safely
+    js_file = ""
+    css_file = ""
+    if not settings.DEBUG and MANIFEST:
+        try:
+            js_file = MANIFEST.get("src/main.ts", {}).get("file", "") or MANIFEST.get(
+                "src/main.jsx", {}
+            ).get("file", "")
+            css_files = MANIFEST.get("src/main.ts", {}).get("css", []) or MANIFEST.get(
+                "src/main.jsx", {}
+            ).get("css", [])
+            css_file = css_files[0] if css_files else ""
+        except (KeyError, IndexError, AttributeError):
+            pass
+
     context = {
         "asset_url": os.environ.get("ASSET_URL", ""),
         "debug": settings.DEBUG,
         "manifest": MANIFEST,
-        "js_file": "" if settings.DEBUG else MANIFEST["src/main.ts"]["file"],
-        "css_file": "" if settings.DEBUG else MANIFEST["src/main.ts"]["css"][0],
+        "js_file": js_file,
+        "css_file": css_file,
     }
     return render(req, "core/index.html", context)
+
 
 @login_required
 def getNotesForGraph(req):
@@ -136,6 +155,7 @@ def note(req):
 
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
 
 @login_required
 def getNotes(req):

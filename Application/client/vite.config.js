@@ -15,7 +15,7 @@ export default defineConfig({
     rollupOptions: {
       input: "./src/main.jsx"
     },
-    outDir: "../_server/core/static/core"
+    outDir: process.env.BUILD_FOR_DOCKER ? "dist" : "../_server/core/static/core"
   },
-  base: "/static"
+  base: process.env.BUILD_FOR_DOCKER ? "/" : "/static"
 })

@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import math, json
 from scipy.linalg import svd
@@ -109,7 +108,7 @@ def main(notesObj: dict):
     DkScaled = DkNorm * scaleFactor
 
 
-
+    returnData = None
     docs = [] # "id" : name
     docsAndClosest = [] # target 
 

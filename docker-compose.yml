@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Application/_server/Dockerfile
+    container_name: fullstack_web
+    volumes:
+      - ./Application/_server:/app:rw
+      - ./Application/_server/static:/static:rw
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./Application/_server/.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=_server.settings
+    command: gunicorn --bind 0.0.0.0:8000 --workers 4 --timeout 120 _server.wsgi:application
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/admin/", "-s", "-o", "/dev/null", "-w", "%{http_code}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+
